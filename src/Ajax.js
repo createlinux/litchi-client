@@ -149,23 +149,45 @@ const ajax = {
             body: JSON.stringify(data)
         });
         return fetch(request).then(res => {
-            if (res.status === 401) {
-                if (pathname !== '/login' && pathname !== '/') {
-                    if (!hasAlert) {
-                        hasAlert = true
-                        return Modal.info({
-                            title: '登录超时',
-                            content: "请重新登录",
-                            okText: "好的",
-                            onOk() {
-                                hasAlert = false
-                                location.href = '/login'
-                            },
-                        })
-                    }
+            return new Promise(async resolve => {
+                const body = await res.json()
+                if (res.status === 500) {
+                    Modal.error({
+                        title: "500，服务器内部错误",
+                        content: body.message
+                    })
                 }
-            }
-            return res.json()
+
+                if (res.status === 403) {
+                    Modal.confirm({
+                        title: body.message,
+                        content: ""
+                    })
+                }
+                /*if (res.status === 400) {
+                    Modal.warn({
+                        title: "参数错误",
+                        content: body.message
+                    })
+                }*/
+
+                if (res.status === 404) {
+                    Modal.error({
+                        title: "资源不存在",
+                        content: body.message
+                    })
+                }
+
+                if (res.status === 400) {
+                    message.warn(body.message)
+                }
+
+                return resolve({
+                    status: res.status,
+                    context: body.context,
+                    message: body.message
+                })
+            })
         });
     },
     patch(url, data) {
@@ -186,29 +208,45 @@ const ajax = {
             body: JSON.stringify(data)
         });
         return fetch(request).then(response => {
-            if (response.status === 401) {
-                if (pathname !== '/login' && pathname !== '/') {
-                    if (!hasAlert) {
-                        hasAlert = true
-                        return Modal.info({
-                            title: '登录超时',
-                            content: "请重新登录",
-                            okText: "好的",
-                            onOk() {
-                                hasAlert = false
-                                location.href = '/login'
-                            },
-                        })
-                    }
+            return new Promise(async resolve => {
+                const body = await res.json()
+                if (res.status === 500) {
+                    Modal.error({
+                        title: "500，服务器内部错误",
+                        content: body.message
+                    })
                 }
-            }
-            if (response.status === 405) {
-                Modal.error({
-                    title: "405 Method Not Allowed",
-                    content: "该接口禁止PATCH请求"
+
+                if (res.status === 403) {
+                    Modal.confirm({
+                        title: body.message,
+                        content: ""
+                    })
+                }
+                /*if (res.status === 400) {
+                    Modal.warn({
+                        title: "参数错误",
+                        content: body.message
+                    })
+                }*/
+
+                if (res.status === 404) {
+                    Modal.error({
+                        title: "资源不存在",
+                        content: body.message
+                    })
+                }
+
+                if (res.status === 400) {
+                    message.warn(body.message)
+                }
+
+                return resolve({
+                    status: res.status,
+                    context: body.context,
+                    message: body.message
                 })
-            }
-            return response.json()
+            })
         });
     }
     ,
@@ -307,30 +345,45 @@ const ajax = {
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(data)
         }).then(response => {
-            if (response.status === 500) {
-                return alert("服务器内部错误，请稍后再试一试。")
-            }
-            if (response.status === 429) {
-                return alert("Too Many Requests.")
-            }
-            if (response.status === 401) {
-                if (pathname !== '/login' && pathname !== '/') {
-                    if (!hasAlert) {
-                        hasAlert = true
-                        return Modal.info({
-                            title: '登录超时',
-                            content: "请重新登录",
-                            okText: "好的",
-                            onOk() {
-                                hasAlert = false
-                                location.href = '/login'
-                            },
-                        })
-                    }
+            return new Promise(async resolve => {
+                const body = await res.json()
+                if (res.status === 500) {
+                    Modal.error({
+                        title: "500，服务器内部错误",
+                        content: body.message
+                    })
                 }
 
-            }
-            return response.json()
+                if (res.status === 403) {
+                    Modal.confirm({
+                        title: body.message,
+                        content: ""
+                    })
+                }
+                /*if (res.status === 400) {
+                    Modal.warn({
+                        title: "参数错误",
+                        content: body.message
+                    })
+                }*/
+
+                if (res.status === 404) {
+                    Modal.error({
+                        title: "资源不存在",
+                        content: body.message
+                    })
+                }
+
+                if (res.status === 400) {
+                    message.warn(body.message)
+                }
+
+                return resolve({
+                    status: res.status,
+                    context: body.context,
+                    message: body.message
+                })
+            })
         });
     }
 }
