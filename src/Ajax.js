@@ -6,21 +6,16 @@ const getAuthorization = () => {
 }
 let hasAlert = false
 const ajax = {
-    post(url, data, errorAlertConfig = {}) {
+    post(url, data = {}) {
         const formdata = data || {};
         let u = new URL(url);
         if (typeof formdata !== 'object') {
             return console.error("ajax.js:data只接受object");
         }
 
-        let defaultErrorConfig = {
-            500: true,
-            404: true,
-            403: true
-        }
 
         // @ts-ignore
-        const mergeErrorConfig = Object.assign({}, defaultErrorConfig, errorAlertConfig)
+
         return fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
@@ -36,14 +31,14 @@ const ajax = {
         }).then((res) => {
             return new Promise(async resolve => {
                 const body = await res.json()
-                if (res.status === 500 && mergeErrorConfig[500]) {
+                if (res.status === 500) {
                     Modal.error({
                         title: "500，服务器内部错误",
                         content: body.message
                     })
                 }
 
-                if (res.status === 403 && mergeErrorConfig[403]) {
+                if (res.status === 403) {
                     Modal.confirm({
                         title: body.message,
                         content: ""
@@ -56,7 +51,7 @@ const ajax = {
                     })
                 }*/
 
-                if (res.status === 404 && mergeErrorConfig[404]) {
+                if (res.status === 404) {
                     Modal.error({
                         title: "资源不存在",
                         content: body.message
@@ -246,14 +241,14 @@ const ajax = {
         return fetch(request).then(res => {
             return new Promise(async resolve => {
                 const body = await res.json()
-                if (res.status === 500 && mergeErrorConfig[500]) {
+                if (res.status === 500) {
                     Modal.error({
                         title: "500，服务器内部错误",
                         content: body.message
                     })
                 }
 
-                if (res.status === 403 && mergeErrorConfig[403]) {
+                if (res.status === 403) {
                     Modal.confirm({
                         title: body.message,
                         content: ""
@@ -266,7 +261,7 @@ const ajax = {
                     })
                 }*/
 
-                if (res.status === 404 && mergeErrorConfig[404]) {
+                if (res.status === 404) {
                     Modal.error({
                         title: "资源不存在",
                         content: body.message
