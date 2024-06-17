@@ -1,5 +1,6 @@
 import {Session} from "./Session"
 import {message, Modal} from "ant-design-vue";
+import {ulid} from 'ulid'
 
 const getAuthorization = () => {
     return typeof Session.get() === 'string' ? "Bearer " + Session.get() : ''
@@ -23,7 +24,8 @@ const ajax = {
             credentials: 'same-origin', // include, *same-origin, omit
             headers: new Headers({
                 'content-type': 'application/json;charset=UTF-8',
-                'Authorization': getAuthorization()
+                'Authorization': getAuthorization(),
+                'requestId': ulid()
             }),
             //redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -101,7 +103,8 @@ const ajax = {
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
                 'X-Requested-With': 'XMLHttpRequest',
-                'Authorization': getAuthorization()
+                'Authorization': getAuthorization(),
+                'requestId': ulid()
                 //'Content-Type': 'application/x-www-form-urlencoded',
             }, //redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -142,7 +145,8 @@ const ajax = {
                 /*'Content-Type': 'multipart/form-data'*/
                 //'Content-Type': 'application/x-www-form-urlencoded',
                 'Content-type': 'application/json; charset=UTF-8',
-                'Authorization': getAuthorization()
+                'Authorization': getAuthorization(),
+                'requestId': ulid()
             },
             //redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -201,7 +205,8 @@ const ajax = {
                 /*'Content-Type': 'multipart/form-data'*/
                 //'Content-Type': 'application/x-www-form-urlencoded',
                 'Content-type': 'application/json; charset=UTF-8',
-                'Authorization': getAuthorization()
+                'Authorization': getAuthorization(),
+                'requestId': ulid()
             },
             //redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -270,7 +275,8 @@ const ajax = {
                 /*'Content-Type': 'multipart/form-data'*/
                 //'Content-Type': 'application/x-www-form-urlencoded',
                 'Content-type': 'application/json; charset=UTF-8',
-                'Authorization': getAuthorization()
+                'Authorization': getAuthorization(),
+                'requestId': ulid()
             },
             //redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -339,7 +345,8 @@ const ajax = {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 //'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': getAuthorization()
+                'Authorization': getAuthorization(),
+                'requestId': ulid()
             },
             //redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url

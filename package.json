@@ -1,6 +1,7 @@
 {
   "name": "litchi-client",
-  "version": "1.0.6",
+  "version": "1.0.7",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,6 +10,7 @@
   "author": "mxcforworker",
   "license": "ISC",
   "dependencies": {
-    "ant-design-vue": "^4.2.3"
+    "ant-design-vue": "^4.2.3",
+    "ulid": "^2.3.0"
   }
 }
