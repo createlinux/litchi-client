@@ -227,7 +227,7 @@ const ajax = {
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(data)
         });
-        return fetch(request).then(response => {
+        return fetch(request).then(res => {
             return new Promise(async resolve => {
                 const body = await res.json()
                 if (res.status === 500) {
@@ -380,7 +380,7 @@ const ajax = {
             //redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(data)
-        }).then(response => {
+        }).then(res => {
             return new Promise(async resolve => {
                 const body = await res.json()
                 if (res.status === 500) {
