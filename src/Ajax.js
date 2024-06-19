@@ -543,14 +543,10 @@ const storeSession = () => {
         body: JSON.stringify({})
     }).then((res) => {
         return new Promise(async resolve => {
-            if (res.status !== 201) {
-                Modal.warning({
-                    title: "请求登录链接失败",
-                    content: "网络故障，或者请求被阻止，请稍后再试！"
-                })
-            } else {
+            console.log(res)
+            if(res.context.redirect_uri){
                 location.href = res.context.redirect_uri
-                throw new Error("跳转到登录页面")
+                console.log("跳转到登录页面")
             }
         })
     }).catch(error => {
