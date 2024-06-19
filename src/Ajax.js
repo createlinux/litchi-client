@@ -70,7 +70,9 @@ const ajax = {
                         content: "登录超时，请重新登录！",
                         onOk() {
                             storeSession()
-                        }
+                        },
+                        okText:"确认",
+                        onCancel:false
                     })
                 }
 
@@ -153,7 +155,9 @@ const ajax = {
                         content: "登录超时，请重新登录！",
                         onOk() {
                             storeSession()
-                        }
+                        },
+                        okText:"确认",
+                        onCancel:false
                     })
                 }
 
@@ -233,7 +237,9 @@ const ajax = {
                         content: "登录超时，请重新登录！",
                         onOk() {
                             storeSession()
-                        }
+                        },
+                        okText:"确认",
+                        onCancel:false
                     })
                 }
 
@@ -309,7 +315,9 @@ const ajax = {
                         content: "登录超时，请重新登录！",
                         onOk() {
                             storeSession()
-                        }
+                        },
+                        okText:"确认",
+                        onCancel:false
                     })
                 }
 
@@ -403,7 +411,9 @@ const ajax = {
                         content: "登录超时，请重新登录！",
                         onOk() {
                             storeSession()
-                        }
+                        },
+                        okText:"确认",
+                        onCancel:false
                     })
                 }
 
@@ -492,7 +502,9 @@ const ajax = {
                         content: "登录超时，请重新登录！",
                         onOk() {
                             storeSession()
-                        }
+                        },
+                        okText:"确认",
+                        onCancel:false
                     })
                 }
 
@@ -531,7 +543,7 @@ const storeSession = () => {
         body: JSON.stringify({})
     }).then((res) => {
         return new Promise(async resolve => {
-            if (res.status !== 200) {
+            if (res.status !== 201) {
                 Modal.warning({
                     title: "请求登录链接失败",
                     content: "网络故障，或者请求被阻止，请稍后再试！"
