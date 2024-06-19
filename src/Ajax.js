@@ -5,15 +5,32 @@ import {ulid} from 'ulid'
 const getAuthorization = () => {
     return typeof Session.get() === 'string' ? "Bearer " + Session.get() : ''
 }
+
+
 let hasAlert = false
+let hasRedirectUri = false
+
+const noResponsePromise = () => {
+    return new Promise(async resolve => {
+        return resolve({
+            status: -1,
+            context: "未登录",
+            message: "未登录"
+        })
+    })
+}
+
 const ajax = {
+    apiBaseURI: "",
     post(url, data = {}) {
+        if (hasRedirectUri) {
+            return noResponsePromise();
+        }
         const formdata = data || {};
         let u = new URL(url);
         if (typeof formdata !== 'object') {
             return console.error("ajax.js:data只接受object");
         }
-
 
         // @ts-ignore
 
@@ -46,12 +63,16 @@ const ajax = {
                         content: ""
                     })
                 }
-                /*if (res.status === 400) {
-                    Modal.warn({
-                        title: "参数错误",
-                        content: body.message
+                if (res.status === 401) {
+                    hasRedirectUri = true;
+                    Modal.confirm({
+                        title: body.message,
+                        content: "登录超时，请重新登录！",
+                        onOk() {
+                            storeSession()
+                        }
                     })
-                }*/
+                }
 
                 if (res.status === 404) {
                     Modal.error({
@@ -84,6 +105,9 @@ const ajax = {
         })
     },
     get(url, params) {
+        if (hasRedirectUri) {
+            return noResponsePromise();
+        }
         params = params || {};
         let u = new URL(url);
         if (typeof params !== 'object') {
@@ -126,11 +150,15 @@ const ajax = {
                         content: ""
                     })
                 }
-                console.log("res.status === 401",res.status === 401)
+                console.log("res.status === 401", res.status === 401)
                 if (res.status === 401) {
+                    hasRedirectUri = true;
                     Modal.confirm({
                         title: body.message,
-                        content: "可能登录已超时，请重新登录"
+                        content: "登录超时，请重新登录！",
+                        onOk() {
+                            storeSession()
+                        }
                     })
                 }
 
@@ -143,6 +171,9 @@ const ajax = {
         });
     },
     put(url, data) {
+        if (hasRedirectUri) {
+            return noResponsePromise();
+        }
         data = data || {}
         let request = new Request(url, {
             method: 'PUT', // *GET, POST, PUT, DELETE, etc.
@@ -195,9 +226,13 @@ const ajax = {
                 }
 
                 if (res.status === 401) {
+                    hasRedirectUri = true;
                     Modal.confirm({
                         title: body.message,
-                        content: "可能登录已超时，请重新登录"
+                        content: "登录超时，请重新登录！",
+                        onOk() {
+                            storeSession()
+                        }
                     })
                 }
 
@@ -210,6 +245,9 @@ const ajax = {
         });
     },
     patch(url, data) {
+        if (hasRedirectUri) {
+            return noResponsePromise();
+        }
         data = data || {}
         let request = new Request(url, {
             method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
@@ -258,9 +296,13 @@ const ajax = {
                 }
 
                 if (res.status === 401) {
+                    hasRedirectUri = true;
                     Modal.confirm({
                         title: body.message,
-                        content: "可能登录已超时，请重新登录"
+                        content: "登录超时，请重新登录！",
+                        onOk() {
+                            storeSession()
+                        }
                     })
                 }
 
@@ -278,6 +320,9 @@ const ajax = {
     }
     ,
     delete(url, data, params) {
+        if (hasRedirectUri) {
+            return noResponsePromise();
+        }
         params = params || {};
         data = data || {};
         let u = new URL(url);
@@ -339,9 +384,13 @@ const ajax = {
                 }
 
                 if (res.status === 401) {
+                    hasRedirectUri = true;
                     Modal.confirm({
                         title: body.message,
-                        content: "可能登录已超时，请重新登录"
+                        content: "登录超时，请重新登录！",
+                        onOk() {
+                            storeSession()
+                        }
                     })
                 }
 
@@ -354,6 +403,9 @@ const ajax = {
         });
     },
     upload(url, data) {
+        if (hasRedirectUri) {
+            return noResponsePromise();
+        }
         data = data || {};
         let u = new URL(url);
         if (typeof data !== 'object') {
@@ -415,9 +467,13 @@ const ajax = {
                 }
 
                 if (res.status === 401) {
+                    hasRedirectUri = true;
                     Modal.confirm({
                         title: body.message,
-                        content: "可能登录已超时，请重新登录"
+                        content: "登录超时，请重新登录！",
+                        onOk() {
+                            storeSession()
+                        }
                     })
                 }
 
@@ -429,5 +485,48 @@ const ajax = {
             })
         });
     }
+}
+
+const storeSession = () => {
+    if(!ajax.apiBaseURI){
+        throw new Error("store access_tokens not found！")
+    }
+    return fetch(ajax.apiBaseURI + "/access_tokens", {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: new Headers({
+            'content-type': 'application/json;charset=UTF-8',
+            //'Authorization': getAuthorization(),
+            'Request-Id': ulid()
+        }),
+        //redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify({})
+    }).then((res) => {
+        return new Promise(async resolve => {
+            if (res.status !== 200) {
+                Modal.warning({
+                    title: "请求登录链接失败",
+                    content: "网络故障，或者请求被阻止，请稍后再试！"
+                })
+            } else {
+                location.href = res.context.redirect_uri
+                throw new Error("跳转到登录页面")
+            }
+        })
+    }).catch(error => {
+        Modal.warning({
+            title: "请求失败！",
+            content: "网络故障，或者请求被阻止，请稍后再试！"
+        })
+        return new Promise(resolve => {
+            //console.error(errorMsg)
+            return resolve({
+                message: errorMsg
+            })
+        })
+    })
 }
 export default ajax
