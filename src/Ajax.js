@@ -65,6 +65,7 @@ const ajax = {
                 }
                 if (res.status === 401) {
                     hasRedirectUri = true;
+                    Session.remove()
                     Modal.confirm({
                         title: body.message,
                         content: "登录超时，请重新登录！",
@@ -150,6 +151,7 @@ const ajax = {
                 console.log("res.status === 401", res.status === 401)
                 if (res.status === 401) {
                     hasRedirectUri = true;
+                    Session.remove()
                     Modal.confirm({
                         title: body.message,
                         content: "登录超时，请重新登录！",
@@ -232,6 +234,7 @@ const ajax = {
 
                 if (res.status === 401) {
                     hasRedirectUri = true;
+                    Session.remove()
                     Modal.confirm({
                         title: body.message,
                         content: "登录超时，请重新登录！",
@@ -310,6 +313,7 @@ const ajax = {
 
                 if (res.status === 401) {
                     hasRedirectUri = true;
+                    Session.remove()
                     Modal.confirm({
                         title: body.message,
                         content: "登录超时，请重新登录！",
@@ -406,6 +410,7 @@ const ajax = {
 
                 if (res.status === 401) {
                     hasRedirectUri = true;
+                    Session.remove()
                     Modal.confirm({
                         title: body.message,
                         content: "登录超时，请重新登录！",
@@ -497,6 +502,7 @@ const ajax = {
 
                 if (res.status === 401) {
                     hasRedirectUri = true;
+                    Session.remove()
                     Modal.confirm({
                         title: body.message,
                         content: "登录超时，请重新登录！",
