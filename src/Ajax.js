@@ -544,6 +544,7 @@ const storeSession = () => {
     }).then((res) => {
         return new Promise(async resolve => {
             const body = res.json()
+            console.log(body)
             if(body.context.redirect_uri){
                 location.href = body.context.redirect_uri
                 console.log("跳转到登录页面")
