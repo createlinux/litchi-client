@@ -517,6 +517,7 @@ const storeSession = () => {
             }
         })
     }).catch(error => {
+        console.log(error)
         Modal.warning({
             title: "请求失败！",
             content: "网络故障，或者请求被阻止，请稍后再试！"
