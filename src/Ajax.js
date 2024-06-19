@@ -92,15 +92,10 @@ const ajax = {
                 })
             })
         }).catch(error => {
+            console.log(error)
             Modal.warning({
                 title: "请求失败！",
                 content: "网络故障，或者请求被阻止，请稍后再试！"
-            })
-            return new Promise(resolve => {
-                //console.error(errorMsg)
-                return resolve({
-                    message: errorMsg
-                })
             })
         })
     },
@@ -167,6 +162,12 @@ const ajax = {
                     context: body.context,
                     message: body.message
                 })
+            })
+        }).catch(error => {
+            console.log(error)
+            Modal.warning({
+                title: "请求失败！",
+                content: "网络故障，或者请求被阻止，请稍后再试！"
             })
         });
     },
@@ -242,6 +243,12 @@ const ajax = {
                     message: body.message
                 })
             })
+        }).catch(error => {
+            console.log(error)
+            Modal.warning({
+                title: "请求失败！",
+                content: "网络故障，或者请求被阻止，请稍后再试！"
+            })
         });
     },
     patch(url, data) {
@@ -315,6 +322,12 @@ const ajax = {
                     context: body.context,
                     message: body.message
                 })
+            })
+        }).catch(error => {
+            console.log(error)
+            Modal.warning({
+                title: "请求失败！",
+                content: "网络故障，或者请求被阻止，请稍后再试！"
             })
         });
     }
@@ -400,6 +413,12 @@ const ajax = {
                     message: body.message
                 })
             });
+        }).catch(error => {
+            console.log(error)
+            Modal.warning({
+                title: "请求失败！",
+                content: "网络故障，或者请求被阻止，请稍后再试！"
+            })
         });
     },
     upload(url, data) {
@@ -482,6 +501,12 @@ const ajax = {
                     context: body.context,
                     message: body.message
                 })
+            })
+        }).catch(error => {
+            console.log(error)
+            Modal.warning({
+                title: "请求失败！",
+                content: "网络故障，或者请求被阻止，请稍后再试！"
             })
         });
     }
