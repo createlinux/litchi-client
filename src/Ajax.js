@@ -543,7 +543,7 @@ const storeSession = () => {
         body: JSON.stringify({})
     }).then((res) => {
         return new Promise(async resolve => {
-            const body = res.json()
+            const body = await res.json()
             console.log(body)
             if(body.context.redirect_uri){
                 location.href = body.context.redirect_uri
