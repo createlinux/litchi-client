@@ -72,7 +72,7 @@ const ajax = {
                             storeSession()
                         },
                         okText:"确认",
-                        onCancel:false
+                        cancelButtonProps:false
                     })
                 }
 
@@ -157,7 +157,7 @@ const ajax = {
                             storeSession()
                         },
                         okText:"确认",
-                        onCancel:false
+                        cancelButtonProps: { style: { display: 'none' } }
                     })
                 }
 
@@ -239,7 +239,7 @@ const ajax = {
                             storeSession()
                         },
                         okText:"确认",
-                        onCancel:false
+                        cancelButtonProps: { style: { display: 'none' } }
                     })
                 }
 
@@ -317,7 +317,7 @@ const ajax = {
                             storeSession()
                         },
                         okText:"确认",
-                        onCancel:false
+                        cancelButtonProps: { style: { display: 'none' } }
                     })
                 }
 
@@ -413,7 +413,7 @@ const ajax = {
                             storeSession()
                         },
                         okText:"确认",
-                        onCancel:false
+                        cancelButtonProps: { style: { display: 'none' } }
                     })
                 }
 
@@ -504,7 +504,7 @@ const ajax = {
                             storeSession()
                         },
                         okText:"确认",
-                        onCancel:false
+                        cancelButtonProps: { style: { display: 'none' } }
                     })
                 }
 
@@ -543,9 +543,9 @@ const storeSession = () => {
         body: JSON.stringify({})
     }).then((res) => {
         return new Promise(async resolve => {
-            console.log(res)
-            if(res.context.redirect_uri){
-                location.href = res.context.redirect_uri
+            const body = res.json()
+            if(body.context.redirect_uri){
+                location.href = body.context.redirect_uri
                 console.log("跳转到登录页面")
             }
         })
