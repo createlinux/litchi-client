@@ -107,6 +107,7 @@ const ajax = {
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         });
         return fetch(request).then(res => {
+            console.log(res)
             return new Promise(async resolve => {
                 const body = await res.json()
                 if (res.status === 500) {
@@ -120,6 +121,13 @@ const ajax = {
                     Modal.confirm({
                         title: body.message,
                         content: ""
+                    })
+                }
+
+                if (res.status === 401) {
+                    Modal.confirm({
+                        title: body.message,
+                        content: "可能登录已超时，请重新登录"
                     })
                 }
 
@@ -182,6 +190,13 @@ const ajax = {
                     message.warn(body.message)
                 }
 
+                if (res.status === 401) {
+                    Modal.confirm({
+                        title: body.message,
+                        content: "可能登录已超时，请重新登录"
+                    })
+                }
+
                 return resolve({
                     status: res.status,
                     context: body.context,
@@ -234,6 +249,13 @@ const ajax = {
                     Modal.error({
                         title: "资源不存在",
                         content: body.message
+                    })
+                }
+
+                if (res.status === 401) {
+                    Modal.confirm({
+                        title: body.message,
+                        content: "可能登录已超时，请重新登录"
                     })
                 }
 
@@ -310,6 +332,13 @@ const ajax = {
                     message.warn(body.message)
                 }
 
+                if (res.status === 401) {
+                    Modal.confirm({
+                        title: body.message,
+                        content: "可能登录已超时，请重新登录"
+                    })
+                }
+
                 return resolve({
                     status: res.status,
                     context: body.context,
@@ -376,6 +405,13 @@ const ajax = {
 
                 if (res.status === 400) {
                     message.warn(body.message)
+                }
+
+                if (res.status === 401) {
+                    Modal.confirm({
+                        title: body.message,
+                        content: "可能登录已超时，请重新登录"
+                    })
                 }
 
                 return resolve({
