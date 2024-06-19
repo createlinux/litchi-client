@@ -21,7 +21,7 @@ const noResponsePromise = () => {
 }
 
 const ajax = {
-    apiBaseURI: "",
+    storeAccessTokenURL: "",
     post(url, data = {}) {
         if (hasRedirectUri) {
             return noResponsePromise();
@@ -488,10 +488,10 @@ const ajax = {
 }
 
 const storeSession = () => {
-    if(!ajax.apiBaseURI){
+    if(!ajax.storeAccessTokenURL){
         throw new Error("store access_tokens not found！")
     }
-    return fetch(ajax.apiBaseURI + "/access_tokens", {
+    return fetch(ajax.storeAccessTokenURL, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -520,12 +520,6 @@ const storeSession = () => {
         Modal.warning({
             title: "请求失败！",
             content: "网络故障，或者请求被阻止，请稍后再试！"
-        })
-        return new Promise(resolve => {
-            //console.error(errorMsg)
-            return resolve({
-                message: errorMsg
-            })
         })
     })
 }
