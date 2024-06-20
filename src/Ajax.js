@@ -73,7 +73,7 @@ const ajax = {
                             storeSession()
                         },
                         okText:"确认",
-                        cancelButtonProps:false
+                        cancelButtonProps: { style: { display: 'none' } }
                     })
                 }
 
