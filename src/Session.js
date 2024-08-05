@@ -1,4 +1,4 @@
-const accessTokenName = "accessToken"
+const accessTokenName = "access_token"
 export const Session = {
     get() {
         return localStorage.getItem(accessTokenName)
