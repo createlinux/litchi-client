@@ -22,6 +22,8 @@ const noResponsePromise = () => {
 
 const ajax = {
     storeAccessTokenURL: "",
+    clientId:"",
+    source:"",
     post(url, data = {}) {
         if (hasRedirectUri) {
             return noResponsePromise();
@@ -532,7 +534,13 @@ const ajax = {
 
 const storeSession = () => {
     if(!ajax.storeAccessTokenURL){
-        throw new Error("store access_tokens not found！")
+        throw new Error("ajax storeAccessTokenURL not found！")
+    }
+    if(!ajax.clientId){
+        throw new Error("missing clientId!")
+    }
+    if(!ajax.source){
+        throw new Error("missing source!")
     }
     return fetch(ajax.storeAccessTokenURL, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -546,7 +554,10 @@ const storeSession = () => {
         }),
         //redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify({})
+        body: JSON.stringify({
+            clientId:ajax.clientId,
+            source:ajax.source
+        })
     }).then((res) => {
         return new Promise(async resolve => {
             const body = await res.json()
