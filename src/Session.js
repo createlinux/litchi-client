@@ -34,10 +34,30 @@ const storeSession = (code) => {
         return new Promise(async resolve => {
             const body = await res.json()
             console.log(body)
-            if (body.context.redirect_uri) {
-                location.href = body.context.redirect_uri
-                console.log("跳转到登录页面")
+            if (body.code === 40003) {
+                //授权码已过期
+                Modal.warning({
+                    title: "请求已超时，请重新登录",
+                    content: "",
+                    onOk() {
+                        Session.storeByCode()
+                    }
+                })
             }
+            if (body.code === 201) {
+                if (body.context) {
+                    if (body.context.redirect_uri) {
+                        location.href = body.context.redirect_uri
+                        console.log("跳转到登录页面")
+                    }
+                    if (body.context.accessToken) {
+                        Session.set(body.context.accessToken)
+                        const u = new URL(location.href)
+                        location.href = u.protocol + "//" + u.host
+                    }
+                }
+            }
+
         })
     }).catch(error => {
         console.log(error)
