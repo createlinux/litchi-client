@@ -151,7 +151,7 @@ const ajax = {
                     })
                 }
                 console.log("res.status === 401", res.status === 401)
-                if (res.status === 401) {
+                if (res.status === 401 && !hasRedirectUri) {
                     hasRedirectUri = true;
                     Session.remove()
                     Modal.confirm({
@@ -234,7 +234,7 @@ const ajax = {
                     message.warn(body.message)
                 }
 
-                if (res.status === 401) {
+                if (res.status === 401 && !hasRedirectUri) {
                     hasRedirectUri = true;
                     Session.remove()
                     Modal.confirm({
@@ -313,7 +313,7 @@ const ajax = {
                     })
                 }
 
-                if (res.status === 401) {
+                if (res.status === 401 && !hasRedirectUri) {
                     hasRedirectUri = true;
                     Session.remove()
                     Modal.confirm({
@@ -410,7 +410,7 @@ const ajax = {
                     message.warn(body.message)
                 }
 
-                if (res.status === 401) {
+                if (res.status === 401 && !hasRedirectUri) {
                     hasRedirectUri = true;
                     Session.remove()
                     Modal.confirm({
@@ -502,7 +502,7 @@ const ajax = {
                     message.warn(body.message)
                 }
 
-                if (res.status === 401) {
+                if (res.status === 401 && !hasRedirectUri) {
                     hasRedirectUri = true;
                     Session.remove()
                     Modal.confirm({
