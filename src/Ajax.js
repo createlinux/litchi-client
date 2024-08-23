@@ -73,7 +73,7 @@ const ajax = {
                         title: body.message,
                         content: "登录超时，请重新登录！",
                         onOk() {
-                            Session.storeByCode()
+                            return Session.storeByCode()
                         },
                         okText: "确认",
                         cancelButtonProps: {style: {display: 'none'}}
@@ -159,7 +159,7 @@ const ajax = {
                         title: body.message,
                         content: "登录超时，请重新登录！",
                         onOk() {
-                            Session.storeByCode()()
+                            return Session.storeByCode()
                         },
                         okText: "确认",
                         cancelButtonProps: {style: {display: 'none'}}
@@ -242,7 +242,7 @@ const ajax = {
                         title: body.message,
                         content: "登录超时，请重新登录！",
                         onOk() {
-                            Session.storeByCode()
+                            return Session.storeByCode()
                         },
                         okText: "确认",
                         cancelButtonProps: {style: {display: 'none'}}
@@ -321,7 +321,7 @@ const ajax = {
                         title: body.message,
                         content: "登录超时，请重新登录！",
                         onOk() {
-                            Session.storeByCode()
+                            return Session.storeByCode()
                         },
                         okText: "确认",
                         cancelButtonProps: {style: {display: 'none'}}
@@ -418,7 +418,7 @@ const ajax = {
                         title: body.message,
                         content: "登录超时，请重新登录！",
                         onOk() {
-                            Session.storeByCode()
+                            return Session.storeByCode()
                         },
                         okText: "确认",
                         cancelButtonProps: {style: {display: 'none'}}
@@ -510,7 +510,7 @@ const ajax = {
                         title: body.message,
                         content: "登录超时，请重新登录！",
                         onOk() {
-                            Session.storeByCode()
+                            return Session.storeByCode()
                         },
                         okText: "确认",
                         cancelButtonProps: {style: {display: 'none'}}
