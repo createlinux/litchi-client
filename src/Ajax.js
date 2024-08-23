@@ -8,7 +8,7 @@ const getAuthorization = () => {
 
 
 let hasAlert = false
-window['hasRedirectUri'] = false
+window['hasRedirectUri'] = 0
 
 const noResponsePromise = () => {
     return new Promise(async resolve => {
@@ -22,8 +22,8 @@ const noResponsePromise = () => {
 
 const ajax = {
     storeAccessTokenURL: "",
-    clientId:"",
-    source:"",
+    clientId: "",
+    source: "",
     post(url, data = {}) {
         if (hasRedirectUri) {
             return noResponsePromise();
@@ -65,8 +65,8 @@ const ajax = {
                         content: ""
                     })
                 }
-                if (res.status === 401) {
-                    hasRedirectUri = true;
+                if (res.status === 401 && hasRedirectUri === 0) {
+                    --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
                         title: body.message,
@@ -74,8 +74,8 @@ const ajax = {
                         onOk() {
                             Session.storeByCode()
                         },
-                        okText:"确认",
-                        cancelButtonProps: { style: { display: 'none' } }
+                        okText: "确认",
+                        cancelButtonProps: {style: {display: 'none'}}
                     })
                 }
 
@@ -151,8 +151,8 @@ const ajax = {
                     })
                 }
                 console.log("res.status === 401", res.status === 401)
-                if (res.status === 401 && !hasRedirectUri) {
-                    hasRedirectUri = true;
+                if (res.status === 401 && hasRedirectUri === 0) {
+                    --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
                         title: body.message,
@@ -160,8 +160,8 @@ const ajax = {
                         onOk() {
                             Session.storeByCode()()
                         },
-                        okText:"确认",
-                        cancelButtonProps: { style: { display: 'none' } }
+                        okText: "确认",
+                        cancelButtonProps: {style: {display: 'none'}}
                     })
                 }
 
@@ -234,8 +234,8 @@ const ajax = {
                     message.warn(body.message)
                 }
 
-                if (res.status === 401 && !hasRedirectUri) {
-                    hasRedirectUri = true;
+                if (res.status === 401 && hasRedirectUri === 0) {
+                    --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
                         title: body.message,
@@ -243,8 +243,8 @@ const ajax = {
                         onOk() {
                             Session.storeByCode()
                         },
-                        okText:"确认",
-                        cancelButtonProps: { style: { display: 'none' } }
+                        okText: "确认",
+                        cancelButtonProps: {style: {display: 'none'}}
                     })
                 }
 
@@ -313,8 +313,8 @@ const ajax = {
                     })
                 }
 
-                if (res.status === 401 && !hasRedirectUri) {
-                    hasRedirectUri = true;
+                if (res.status === 401 && hasRedirectUri === 0) {
+                    --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
                         title: body.message,
@@ -322,8 +322,8 @@ const ajax = {
                         onOk() {
                             Session.storeByCode()
                         },
-                        okText:"确认",
-                        cancelButtonProps: { style: { display: 'none' } }
+                        okText: "确认",
+                        cancelButtonProps: {style: {display: 'none'}}
                     })
                 }
 
@@ -410,8 +410,8 @@ const ajax = {
                     message.warn(body.message)
                 }
 
-                if (res.status === 401 && !hasRedirectUri) {
-                    hasRedirectUri = true;
+                if (res.status === 401 && hasRedirectUri === 0) {
+                    --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
                         title: body.message,
@@ -419,8 +419,8 @@ const ajax = {
                         onOk() {
                             Session.storeByCode()
                         },
-                        okText:"确认",
-                        cancelButtonProps: { style: { display: 'none' } }
+                        okText: "确认",
+                        cancelButtonProps: {style: {display: 'none'}}
                     })
                 }
 
@@ -502,8 +502,8 @@ const ajax = {
                     message.warn(body.message)
                 }
 
-                if (res.status === 401 && !hasRedirectUri) {
-                    hasRedirectUri = true;
+                if (res.status === 401 && hasRedirectUri === 0) {
+                    --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
                         title: body.message,
@@ -511,8 +511,8 @@ const ajax = {
                         onOk() {
                             Session.storeByCode()
                         },
-                        okText:"确认",
-                        cancelButtonProps: { style: { display: 'none' } }
+                        okText: "确认",
+                        cancelButtonProps: {style: {display: 'none'}}
                     })
                 }
 
