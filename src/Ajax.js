@@ -9,6 +9,7 @@ const getAuthorization = () => {
 
 let hasAlert = false
 window['hasRedirectUri'] = 0
+window['showRedirectUri'] = false
 
 const noResponsePromise = () => {
     return new Promise(async resolve => {
@@ -65,7 +66,7 @@ const ajax = {
                         content: ""
                     })
                 }
-                if (res.status === 401 && hasRedirectUri === 0) {
+                if (res.status === 401 && hasRedirectUri === 0 && showRedirectUri) {
                     --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
@@ -151,7 +152,7 @@ const ajax = {
                     })
                 }
                 console.log("res.status === 401", res.status === 401)
-                if (res.status === 401 && hasRedirectUri === 0) {
+                if (res.status === 401 && hasRedirectUri === 0 && showRedirectUri) {
                     --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
@@ -234,7 +235,7 @@ const ajax = {
                     message.warn(body.message)
                 }
 
-                if (res.status === 401 && hasRedirectUri === 0) {
+                if (res.status === 401 && hasRedirectUri === 0 && showRedirectUri) {
                     --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
@@ -313,7 +314,7 @@ const ajax = {
                     })
                 }
 
-                if (res.status === 401 && hasRedirectUri === 0) {
+                if (res.status === 401 && hasRedirectUri === 0 && showRedirectUri) {
                     --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
@@ -410,7 +411,7 @@ const ajax = {
                     message.warn(body.message)
                 }
 
-                if (res.status === 401 && hasRedirectUri === 0) {
+                if (res.status === 401 && hasRedirectUri === 0 && showRedirectUri) {
                     --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
@@ -502,7 +503,7 @@ const ajax = {
                     message.warn(body.message)
                 }
 
-                if (res.status === 401 && hasRedirectUri === 0) {
+                if (res.status === 401 && hasRedirectUri === 0 && showRedirectUri) {
                     --hasRedirectUri;
                     Session.remove()
                     Modal.confirm({
