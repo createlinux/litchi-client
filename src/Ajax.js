@@ -8,7 +8,7 @@ const getAuthorization = () => {
 
 
 let hasAlert = false
-let hasRedirectUri = false
+window['hasRedirectUri'] = false
 
 const noResponsePromise = () => {
     return new Promise(async resolve => {
